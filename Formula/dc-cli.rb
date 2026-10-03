@@ -5,28 +5,29 @@
 class DcCli < Formula
   desc "Host-global helpers for Dev Containers and this-folder compose"
   homepage "https://dc.brasth.com"
-  version "0.19.0"
+  version "0.22.0"
   license "MIT"
+  depends_on "bash"
 
   on_macos do
     on_arm do
-      url "https://github.com/Brasth/dc-cli/releases/download/v0.19.0/dc-cli-0.19.0-darwin-arm64.tar.gz"
-      sha256 "be9ed2652310782fe7acaf450b73cd2c105c0a4a703773b6728fe0e3b2b92674"
+      url "https://github.com/Brasth/dc-cli/releases/download/v0.22.0/dc-cli-0.22.0-darwin-arm64.tar.gz"
+      sha256 "55fe0ba35efa74c79de76567d8bb8bc1397a623b61ac57395ba36a8043ca275c"
     end
     on_intel do
-      url "https://github.com/Brasth/dc-cli/releases/download/v0.19.0/dc-cli-0.19.0-darwin-amd64.tar.gz"
-      sha256 "4a72495f32ecb0f9e59108e582045a7e8589e5830fa19f5999fc83574fb9b9b1"
+      url "https://github.com/Brasth/dc-cli/releases/download/v0.22.0/dc-cli-0.22.0-darwin-amd64.tar.gz"
+      sha256 "44f56c25f21333a1d6125b56b7650ca419af6b647b6d0f2ae52e59cbf5b3691c"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/Brasth/dc-cli/releases/download/v0.19.0/dc-cli-0.19.0-linux-arm64.tar.gz"
-      sha256 "cd293e5ff1449e1a2977665aeeb6ffe34f22618a00e43722e0a91a0844d163bc"
+      url "https://github.com/Brasth/dc-cli/releases/download/v0.22.0/dc-cli-0.22.0-linux-arm64.tar.gz"
+      sha256 "35da5eb73517e867eb8d0d24f732040d5400c1b963c6b5a629e0830f6b81e089"
     end
     on_intel do
-      url "https://github.com/Brasth/dc-cli/releases/download/v0.19.0/dc-cli-0.19.0-linux-amd64.tar.gz"
-      sha256 "29e25738779e79c50c6ed41585045037091a77ce8c2aba24acb3d36b43d32710"
+      url "https://github.com/Brasth/dc-cli/releases/download/v0.22.0/dc-cli-0.22.0-linux-amd64.tar.gz"
+      sha256 "45769bcea6947ecfb703ad203f5c76767a91d2c157aae3aed90a03237301495a"
     end
   end
 
@@ -45,10 +46,14 @@ class DcCli < Formula
     assert_match "dc-net", shell_output("#{bin}/dc-net --help")
     assert_match "dc-engine", shell_output("#{bin}/dc-engine --help")
     assert_match "dc-try", shell_output("#{bin}/dc-try --help")
+    assert_match "dc-inspect", shell_output("#{bin}/dc-inspect --help")
+    assert_match "dc-actions", shell_output("#{bin}/dc-actions --help")
+    assert_match "0.22.0", shell_output("#{bin}/dc-actions --version")
   end
 
   def caveats
     <<~EOS
+      Helpers need Bash 4+ (Homebrew bash on macOS).
       Needs Docker (Colima or Desktop — one live engine). Official CLI is required only for
       Dev Container folders. Compose-only folders use docker compose or docker-compose via dc-up.
       Preferred: standalone via advertised curl --with-cli
